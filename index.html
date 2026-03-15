@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CauseWork — Des jobs qui comptent vraiment.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg2: #f8f7f4;
+      --bg3: #f1f0ed;
+      --white: #ffffff;
+      --navy: #1a1a2e;
+      --navy-light: #2d2d4e;
+      --green: #16a34a;
+      --green-light: #dcfce7;
+      --green-mid: #bbf7d0;
+      --accent: #7c3aed;
+      --text: #1a1a1a;
+      --text-muted: #6b6860;
+      --text-light: #9ca3af;
+      --border: #e8e6e1;
+      --border-dark: #d1ccc2;
+      --gold: #c9a84c;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Hero gradient override */
+    .hero {
+      background: linear-gradient(135deg, #fafaf8 0%, #f0f0ff 100%) !important;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: 'IMPACT';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(120px, 20vw, 240px);
+      font-weight: 900;
+      color: var(--navy);
+      opacity: 0.04;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-inner { position: relative; z-index: 1; }
+
+    /* Override light hero text colors */
+    .hero h1 { color: var(--navy) !important; }
+    .hero h1 .highlight { background: linear-gradient(135deg, var(--green), #15803d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { color: var(--text-muted) !important; }
+    .hero-badge { background: rgba(26,26,46,0.06) !important; border-color: rgba(26,26,46,0.12) !important; color: var(--navy) !important; }
+    .hero-badge.new-offers { background: rgba(22,163,74,0.1) !important; border-color: rgba(22,163,74,0.25) !important; color: #15803d !important; }
+    .hero-search { box-shadow: 0 4px 24px rgba(26,26,46,0.12); }
+    .hero-stat-number { color: var(--navy) !important; }
+    .hero-stat-label { color: var(--text-muted) !important; }
+    .hero-stat-divider { background: rgba(26,26,46,0.12) !important; }
+
+    /* TRENDING SEARCHES */
+    .trending-row {
+      padding: 16px 5%;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .trending-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .trending-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .trending-tag {
+      background: var(--bg2);
+      border: 1px solid var(--border-dark);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .trending-tag:hover {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+    }
+
+    /* JOB CARD ENHANCEMENTS */
+    .job-card-left-border {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      border-radius: 12px 0 0 12px;
+    }
+
+    .job-card { position: relative; padding-left: 32px; }
+
+    .job-company-avatar {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      margin-right: 4px;
+    }
+
+    .job-new-badge {
+      background: var(--green);
+      color: #fff;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .job-mission {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .job-apply-count {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    /* NAV */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-left { display: flex; align-items: center; gap: 32px; }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+
+    .logo-cause { font-weight: 400; color: var(--navy); }
+    .logo-work { font-weight: 900; color: var(--navy); }
+    .logo-spark { color: var(--green); font-size: 14px; margin-left: 3px; }
+
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 8px 16px;
+      width: 280px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-search:focus-within {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(26,26,46,0.08);
+    }
+
+    .nav-search input {
+      border: none;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      width: 100%;
+      outline: none;
+    }
+
+    .nav-search input::placeholder { color: var(--text-light); }
+    .nav-search svg { color: var(--text-muted); flex-shrink: 0; }
+
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover { color: var(--navy); }
+
+    .btn-nav-primary {
+      background: var(--navy);
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-nav-primary:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      background: var(--navy);
+      padding: 80px 5% 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(22,163,74,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; left: -50px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(22,163,74,0.15);
+      border: 1px solid rgba(22,163,74,0.3);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4ade80;
+    }
+
+    .hero-badge.new-offers {
+      background: rgba(234,179,8,0.15);
+      border-color: rgba(234,179,8,0.3);
+      color: #fbbf24;
+      animation: badgePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes badgePulse {
+      0%, 100% { box-shadow: none; }
+      50% { box-shadow: 0 0 12px rgba(234,179,8,0.3); }
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, #4ade80, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin-bottom: 48px;
+      line-height: 1.65;
+    }
+
+    .hero-search {
+      display: flex;
+      max-width: 680px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .hero-search-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 20px;
+      flex: 1;
+      border-right: 1px solid var(--border);
+    }
+
+    .hero-search-field svg { color: var(--text-muted); flex-shrink: 0; }
+
+    .hero-search-field input {
+      border: none;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      width: 100%;
+      outline: none;
+    }
+
+    .hero-search-field input::placeholder { color: var(--text-muted); }
+
+    .hero-search button {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 16px 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .hero-search button:hover { background: #15803d; }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat { display: flex; flex-direction: column; gap: 2px; }
+    .hero-stat-number { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.03em; }
+    .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500; }
+    .hero-stat-divider { width: 1px; background: rgba(255,255,255,0.15); height: 40px; align-self: center; }
+
+    /* FILTER BAR */
+    .filter-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      position: sticky;
+      top: 64px;
+      z-index: 99;
+    }
+
+    .filter-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 12px 0;
+    }
+
+    .filter-inner::-webkit-scrollbar { display: none; }
+
+    .filter-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      flex: 1;
+    }
+
+    .filter-sort {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      border-left: 1px solid var(--border);
+      padding-left: 12px;
+      flex-shrink: 0;
+    }
+
+    .filter-sort label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .filter-sort select {
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border-dark);
+      border-radius: 100px;
+      padding: 7px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover { border-color: var(--navy); color: var(--navy); background: rgba(26,26,46,0.04); }
+    .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+    /* MAIN */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 5%;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .jobs-section h2 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .jobs-count { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+
+    .jobs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* JOB CARD */
+    .job-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .job-card:hover {
+      border-color: var(--navy);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .job-card.featured {
+      border-color: var(--green);
+      background: linear-gradient(135deg, #fff 85%, rgba(22,163,74,0.03) 100%);
+    }
+
+    .job-card.featured::before {
+      content: 'En vedette';
+      position: absolute;
+      top: -1px; right: 20px;
+      background: var(--green);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .babylon-card::after {
+      content: '⭐ Partenaire fondateur';
+      position: absolute;
+      top: -1px; left: 20px;
+      background: #c9a84c;
+      color: #080808;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .job-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .job-org-logo {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--navy);
+      flex-shrink: 0;
+      letter-spacing: -0.03em;
+    }
+
+    .job-meta { flex: 1; }
+    .job-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+    .job-org { font-size: 14px; font-weight: 600; color: var(--navy); opacity: 0.7; }
+
+    .job-save {
+      background: none;
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .job-save:hover { border-color: var(--navy); color: var(--navy); background: rgba(26,26,46,0.04); }
+
+    .job-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .tag-location { background: var(--bg2); color: var(--text-muted); }
+    .tag-type { background: rgba(26,26,46,0.08); color: var(--navy); }
+    .tag-salary { background: rgba(22,163,74,0.1); color: var(--green); }
+    .tag-impact { background: rgba(124,58,237,0.08); color: var(--accent); }
+
+    .job-card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .job-date { font-size: 12px; color: var(--text-light); }
+
+    .btn-apply {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-apply:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+    /* EMPTY STATE */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .empty-state.visible { display: block; }
+
+    .empty-state-icon { font-size: 52px; margin-bottom: 20px; }
+
+    .empty-state h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .empty-state p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .btn-reset-filter {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-reset-filter:hover { background: var(--navy-light); }
+
+    /* SIDEBAR */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .spotlight-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .spotlight-header {
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      padding: 20px 24px 16px;
+    }
+
+    .spotlight-eyebrow {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+
+    .spotlight-logo {
+      width: 52px; height: 52px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .spotlight-org { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .spotlight-tagline { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+    .spotlight-body { padding: 20px 24px; }
+
+    .spotlight-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+
+    .spotlight-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .spotlight-stat { background: var(--bg2); border-radius: 8px; padding: 10px 14px; }
+    .spotlight-stat-num { font-size: 18px; font-weight: 800; color: var(--navy); letter-spacing: -0.03em; }
+    .spotlight-stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+
+    .btn-spotlight {
+      display: block;
+      text-align: center;
+      background: var(--green);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+
+    .btn-spotlight:hover { background: #15803d; }
+
+    .why-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .why-card h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
+
+    .why-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .why-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .why-item:first-of-type { padding-top: 0; }
+
+    .why-icon {
+      width: 38px; height: 38px;
+      background: var(--green-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .why-text h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .why-text p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* COMMENT ÇA MARCHE — CANDIDATS */
+    .how-it-works {
+      background: var(--bg2);
+      padding: 80px 5%;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .how-inner { max-width: 1200px; margin: 0 auto; }
+
+    .how-eyebrow {
+      text-align: center;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .how-title {
+      text-align: center;
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      margin-bottom: 56px;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+
+    .how-steps::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(16.66% + 20px);
+      right: calc(16.66% + 20px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), rgba(22,163,74,0.2));
+      z-index: 0;
+    }
+
+    .how-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .how-step-num {
+      width: 64px; height: 64px;
+      background: var(--white);
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 900;
+      color: var(--green);
+      margin-bottom: 24px;
+      flex-shrink: 0;
+    }
+
+    .how-step h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .how-step p { font-size: 14px; color: var(--text-muted); line-height: 1.7; max-width: 240px; }
+
+    /* EMAIL SIGNUP */
+    .email-section {
+      background: var(--navy);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .email-inner { max-width: 560px; margin: 0 auto; }
+
+    .email-badge {
+      display: inline-block;
+      background: rgba(22,163,74,0.15);
+      border: 1px solid rgba(22,163,74,0.3);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 12px; font-weight: 700;
+      color: #4ade80;
+      margin-bottom: 20px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .email-section h2 {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 800; color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .email-section p { font-size: 15px; color: rgba(255,255,255,0.6); margin-bottom: 32px; line-height: 1.65; }
+
+    .email-form {
+      display: flex;
+      gap: 8px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .email-form input {
+      flex: 1;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .email-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .email-form input:focus { border-color: var(--green); background: rgba(255,255,255,0.12); }
+
+    .email-form button {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .email-form button:hover { background: #15803d; }
+
+    .email-note { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 12px; }
+
+    .email-success {
+      display: none;
+      font-size: 18px;
+      font-weight: 700;
+      color: #4ade80;
+      padding: 20px;
+      animation: successPop 0.4s ease;
+    }
+
+    @keyframes successPop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* POUR LES RECRUTEURS */
+    .recruiters-section {
+      background: var(--bg);
+      padding: 80px 5%;
+      border-top: 1px solid var(--border);
+    }
+
+    .recruiters-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .recruiters-content .eyebrow {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .recruiters-content h2 {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .recruiters-content p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .recruiters-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .recruiter-benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .recruiter-benefit-icon {
+      width: 32px; height: 32px;
+      background: var(--green-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .recruiter-benefit-text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .recruiter-benefit-text strong { color: var(--navy); }
+
+    .btn-recruiter {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 14px 28px;
+      font-size: 15px; font-weight: 700;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-recruiter:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+    .recruiters-visual {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 40px;
+      color: #fff;
+    }
+
+    .rec-stat-big {
+      font-size: 56px;
+      font-weight: 900;
+      color: #4ade80;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .rec-stat-label {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 32px;
+    }
+
+    .rec-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .rec-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+    }
+
+    .rec-feature-icon { font-size: 20px; flex-shrink: 0; }
+    .rec-feature-text { font-size: 14px; color: rgba(255,255,255,0.8); }
+    .rec-feature-text strong { color: #fff; }
+
+    /* FOOTER */
+    footer {
+      background: #0f0f1a;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 5% 32px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo { font-size: 18px; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: -0.02em; }
+    .footer-logo span { color: var(--green); }
+
+    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    .footer-copy {
+      font-size: 13px; color: rgba(255,255,255,0.25);
+      width: 100%; text-align: center;
+      padding-top: 28px; margin-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* JOB MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal-panel {
+      background: var(--white);
+      width: 100%;
+      max-width: 600px;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: -20px 0 60px rgba(0,0,0,0.15);
+      transform: translateX(60px);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.open .modal-panel { transform: translateX(0); }
+
+    .modal-header {
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .modal-close {
+      width: 36px; height: 36px;
+      background: var(--bg2);
+      border: none;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; cursor: pointer;
+      color: var(--text-muted);
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover { background: var(--border-dark); }
+
+    .modal-body { padding: 28px; }
+
+    .modal-org-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .modal-org-logo {
+      width: 56px; height: 56px;
+      border-radius: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800;
+      color: var(--navy);
+      flex-shrink: 0;
+    }
+
+    .modal-org-name { font-size: 15px; font-weight: 600; color: var(--navy); opacity: 0.7; }
+
+    .modal-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .modal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+
+    .modal-section { margin-bottom: 28px; }
+
+    .modal-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .modal-list li::before {
+      content: '→';
+      color: var(--green);
+      font-size: 12px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .modal-footer {
+      position: sticky;
+      bottom: 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 20px 28px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-modal-apply {
+      flex: 1;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-modal-apply:hover { background: #15803d; }
+
+    .btn-modal-save {
+      background: var(--bg2);
+      color: var(--text);
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 15px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-modal-save:hover { border-color: var(--navy); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .main-content { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .nav-search { display: none; }
+      .recruiters-inner { grid-template-columns: 1fr; gap: 40px; }
+      .how-steps { grid-template-columns: 1fr; gap: 40px; }
+      .how-steps::before { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 60px 5% 80px; }
+      .hero-search { flex-direction: column; }
+      .hero-search-field { border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-stats { gap: 24px; }
+      .hero-stat-divider { display: none; }
+      .email-form { flex-direction: column; }
+      .modal-panel { max-width: 100%; height: 85vh; border-radius: 20px 20px 0 0; }
+      .modal-overlay { align-items: flex-end; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-left">
+      <a class="nav-logo" href="#"><span class="logo-cause">cause</span><span class="logo-work">work</span><span class="logo-spark">✦</span></a>
+      <div class="nav-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Rechercher un poste..." oninput="liveSearch(this.value)">
+      </div>
+    </div>
+    <div class="nav-right">
+      <a class="nav-link" href="#how-it-works">Comment ça marche</a>
+      <a class="nav-link" href="#recruiters">Employeurs</a>
+      <a class="btn-nav-primary" href="#recruiters">Publier une offre</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badges">
+        <div class="hero-badge">✦ 100% impact · 0% bullshit</div>
+        <div class="hero-badge new-offers">🔥 11 nouvelles offres cette semaine</div>
+      </div>
+      <h1>Le job qui compte.<br><span class="highlight">Vraiment.</span></h1>
+      <p class="hero-sub">Des offres vérifiées dans les meilleures ONG et agences sociales de France. Postule en 1 clic, sois rappelé sous 48h.</p>
+
+      <div class="hero-search">
+        <div class="hero-search-field">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Titre, compétence, organisation..." oninput="liveSearch(this.value)">
+        </div>
+        <div class="hero-search-field">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <input type="text" placeholder="Ville, région ou remote">
+        </div>
+        <button>Rechercher →</button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-number">142</div><div class="hero-stat-label">offres actives</div></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><div class="hero-stat-number">38</div><div class="hero-stat-label">ONG partenaires</div></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><div class="hero-stat-number">2 400+</div><div class="hero-stat-label">candidats inscrits</div></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><div class="hero-stat-number">94%</div><div class="hero-stat-label">satisfaction candidats</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-inner" id="filterBar">
+      <div class="filter-group">
+        <button class="filter-btn active" onclick="filterJobs('all', this)">Tous les jobs</button>
+        <button class="filter-btn" onclick="filterJobs('f2f', this)">Collecte F2F</button>
+        <button class="filter-btn" onclick="filterJobs('digital', this)">Digital</button>
+        <button class="filter-btn" onclick="filterJobs('communication', this)">Communication</button>
+        <button class="filter-btn" onclick="filterJobs('terrain', this)">Terrain</button>
+        <button class="filter-btn" onclick="filterJobs('siege', this)">Siège</button>
+      </div>
+      <div class="filter-sort">
+        <label for="sortSelect">Trier par</label>
+        <select id="sortSelect" onchange="sortJobs(this.value)">
+          <option value="pertinence">Pertinence</option>
+          <option value="recent">Plus récents</option>
+          <option value="salaire-asc">Salaire ↑</option>
+          <option value="salaire-desc">Salaire ↓</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRENDING SEARCHES -->
+  <div class="trending-row">
+    <span class="trending-label">🔥 Tendances</span>
+    <div class="trending-tags">
+      <span class="trending-tag" onclick="liveSearch('f2f')">Collecte F2F</span>
+      <span class="trending-tag" onclick="liveSearch('levée de fonds')">Responsable levée de fonds</span>
+      <span class="trending-tag" onclick="liveSearch('communication')">Communication ONG</span>
+      <span class="trending-tag" onclick="liveSearch('terrain')">Terrain</span>
+      <span class="trending-tag" onclick="liveSearch('digital')">Digital</span>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-content">
+    <div class="jobs-section">
+      <h2>Offres d'emploi</h2>
+      <p class="jobs-count" id="jobsCount">8 offres · Triées par pertinence</p>
+
+      <div class="jobs-list" id="jobsList">
+
+        <!-- Job 1 — BABYLON -->
+        <div class="job-card featured babylon-card" data-category="f2f" data-salary="2400" data-date="2"
+             onclick="openModal('Collecteur·rice de dons F2F', 'BABYLON Agency', 'BA', 'Paris (75)', 'CDI', '€1 800–2 400/mois + primes', '⚡ Impact direct',
+             ['Mener des conversations porte-à-porte auprès de particuliers pour recruter des donateurs mensuels', 'Présenter la mission de nos ONG partenaires (WWF, Médecins du Monde, ACF...)', 'Atteindre et dépasser des objectifs hebdomadaires de recrutement qualifié', 'Rendre compte de vos performances via notre dashboard terrain en temps réel'],
+             [\'Expérience en vente, collecte ou animation commerciale (débutant accepté si motivation forte)\', \'Excellentes qualités de communication et d\'empathie\', \'Autonomie, résilience et goût du challenge\', \'Permis B souhaité pour certaines zones\'],
+             [\'CDI dès le 1er jour — pas de période de précarité\', \'Salaire fixe + primes déplafonnées selon performances\', \'Formation complète via BABYLON Academy (simulateur IA inclus)\', \'Évolution rapide vers chef d\'équipe possible dès 6 mois\'])">
+          <div class="job-card-left-border" style="background:#c9a84c;"></div>
+          <div class="job-card-top">
+            <div class="job-company-avatar" style="background: linear-gradient(135deg, #c9a84c, #e8c96e);">BA</div>
+            <div class="job-meta">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:3px;">
+                <div class="job-title" style="margin-bottom:0;">Collecteur·rice de dons F2F</div>
+                <span class="job-new-badge">Nouveau</span>
+              </div>
+              <div class="job-org">BABYLON Agency</div>
+              <div class="job-mission">L'agence de référence pour la collecte F2F en France — performance pure, zéro risque client.</div>
+            </div>
+            <button class="job-save" onclick="event.stopPropagation(); toggleSave(this)" title="Sauvegarder">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="job-tags">
+            <span class="tag tag-location">📍 Paris (75)</span>
+            <span class="tag tag-type">CDI</span>
+            <span class="tag tag-salary">€1 800–2 400/mois + primes</span>
+            <span class="tag tag-impact">⚡ Impact direct</span>
+          </div>
+          <div class="job-card-bottom">
+            <span class="job-date">Publié il y a 2 jours &nbsp;·&nbsp; <span class="job-apply-count">47 candidatures</span></span>
+            <button class="btn-apply">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <!-- Job 2 — WWF -->
+        <div class="job-card" data-category="communication digital" data-salary="35000" data-date="5"
+             onclick="openModal('Chargé·e de communication digitale', 'WWF France', 'WWF', 'Paris (75)', 'CDI', '€32–38K/an', '🌍 Environnement',
+             ['Gérer les réseaux sociaux du WWF France (Instagram, TikTok, LinkedIn) avec une cible 18–35 ans', 'Concevoir et déployer des campagnes de communication digitale liées aux grandes mobilisations (Earth Hour, etc.)', 'Analyser les performances des contenus et produire des reportings mensuels', 'Collaborer avec les équipes plaidoyer pour traduire les enjeux scientifiques en messages accessibles'],
+             ['Bac+4/5 en communication, marketing digital ou équivalent', 'Maîtrise des outils CMS, Meta Ads, Google Analytics', 'Sens du storytelling et culture des réseaux sociaux', 'Sensibilité aux enjeux environnementaux et engagement pour la cause'],
+             ['CDI avec période d\'essai de 2 mois', '6 semaines de congés + RTT', 'Télétravail 2 jours/semaine', 'Participation aux événements internationaux WWF'])">
+          <div class="job-card-top">
+            <div class="job-org-logo" style="background:#e8f5e9; color:#2e7d32;">WWF</div>
+            <div class="job-meta">
+              <div class="job-title">Chargé·e de communication digitale</div>
+              <div class="job-org">WWF France</div>
+            </div>
+            <button class="job-save" onclick="event.stopPropagation(); toggleSave(this)" title="Sauvegarder">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="job-tags">
+            <span class="tag tag-location">📍 Paris (75)</span>
+            <span class="tag tag-type">CDI</span>
+            <span class="tag tag-salary">€32–38K/an</span>
+            <span class="tag tag-impact">🌍 Environnement</span>
+          </div>
+          <div class="job-card-bottom">
+            <span class="job-date">Publié il y a 5 jours</span>
+            <button class="btn-apply">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <!-- Job 3 — MdM -->
+        <div class="job-card" data-category="terrain" data-salary="26400" data-date="3"
+             onclick="openModal('Coordinateur·rice terrain', 'Médecins du Monde', 'MdM', 'Lyon (69)', 'CDD 12 mois', '€2 200/mois', '❤️ Santé humanitaire',
+             ['Coordonner les équipes bénévoles sur les actions de rue et les permanences médicales de Lyon', 'Gérer les partenariats locaux avec les services sociaux, hôpitaux et mairies d\'arrondissement', 'Assurer le suivi administratif et le reporting des activités terrain (indicateurs d\'impact)', 'Former les nouveaux bénévoles aux protocoles d\'intervention et aux approches de réduction des risques'],
+             ['Expérience terrain en milieu associatif ou humanitaire (2 ans minimum)', 'Capacité à gérer des équipes pluridisciplinaires dans des contextes complexes', 'Connaissance des publics précaires et vulnérables', 'Permis B obligatoire — déplacements fréquents sur la métropole'],
+             ['CDD 12 mois renouvelable, avec perspective CDI', 'Formation continue MdM prise en charge', 'Ticket restaurant + 50% transport', 'Congés supplémentaires pour missions humanitaires'])">
+          <div class="job-card-top">
+            <div class="job-org-logo" style="background:#fff3e0; color:#e65100;">MdM</div>
+            <div class="job-meta">
+              <div class="job-title">Coordinateur·rice terrain</div>
+              <div class="job-org">Médecins du Monde</div>
+            </div>
+            <button class="job-save" onclick="event.stopPropagation(); toggleSave(this)" title="Sauvegarder">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="job-tags">
+            <span class="tag tag-location">📍 Lyon (69)</span>
+            <span class="tag tag-type" style="background:rgba(234,179,8,0.1); color:#92400e;">CDD 12 mois</span>
+            <span class="tag tag-salary">€2 200/mois</span>
+            <span class="tag tag-impact">❤️ Santé humanitaire</span>
+          </div>
+          <div class="job-card-bottom">
+            <span class="job-date">Publié il y a 3 jours</span>
+            <button class="btn-apply">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <!-- Job 4 — ACF -->
+        <div class="job-card" data-category="siege f2f" data-salary="46000" data-date="7"
+             onclick="openModal('Fundraising Manager', 'Action contre la Faim', 'ACF', 'Paris (75)', 'CDI', '€42–50K/an', '🌾 Aide alimentaire',
+             ['Piloter la stratégie de collecte de fonds particuliers (F2F, digital, mailing, legs) avec un budget annuel de 8M€', 'Manager une équipe de 6 chargés de collecte et 2 agences externes', 'Développer de nouveaux leviers d\'acquisition donateurs en lien avec la direction marketing', 'Analyser les performances des campagnes et reporter au directeur des ressources'],
+             ['Bac+5 et 5 ans minimum en fundraising ou marketing direct', 'Expérience prouvée en management d\'équipe et gestion de budget', 'Maîtrise des outils CRM (Salesforce ou équivalent) et des canaux de collecte modernes', 'Sensibilité forte aux enjeux humanitaires, idéalement expérience terrain'],
+             ['CDI cadre, statut Cadre conventionnel', 'Salaire selon profil entre 42K et 50K + bonus annuel', 'Télétravail 3 jours/semaine possible', '7 semaines de congés + participation à des missions terrain 1x/an'])">
+          <div class="job-card-top">
+            <div class="job-org-logo" style="background:#fce4ec; color:#c62828;">ACF</div>
+            <div class="job-meta">
+              <div class="job-title">Fundraising Manager</div>
+              <div class="job-org">Action contre la Faim</div>
+            </div>
+            <button class="job-save" onclick="event.stopPropagation(); toggleSave(this)" title="Sauvegarder">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="job-tags">
+            <span class="tag tag-location">📍 Paris (75)</span>
+            <span class="tag tag-type">CDI</span>
+            <span class="tag tag-salary">€42–50K/an</span>
+            <span class="tag tag-impact">🌾 Aide alimentaire</span>
+          </div>
+          <div class="job-card-bottom">
+            <span class="job-date">Publié il y a 1 semaine</span>
+            <button class="btn-apply">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <!-- Job 5 — Amnesty -->
+        <div class="job-card" data-category="digital siege" data-salary="38500" data-date="4"
+             onclick="openModal('Chargé·e de collecte en ligne', 'Amnesty International France', 'AI', 'Paris (75)', 'CDI', '€35–42K/an', '⚖️ Droits humains',
+             ['Concevoir et déployer des campagnes de dons en ligne (email, social ads, search) sur un budget annuel de 1,5M€', 'Optimiser les tunnels de conversion sur le site web Amnesty France (A/B testing, CRO)', 'Gérer la relation avec les prestataires techniques (agences digitales, développeurs)', 'Analyser et reporter mensuellement les KPIs collecte au directeur des ressources'],
+             ['Bac+4/5 en marketing digital, webmarketing ou fundraising digital', '2 à 4 ans d\'expérience en gestion de campagnes digitales payantes', 'Maîtrise de Google Analytics, Meta Ads Manager, Mailchimp ou équivalent', 'Sensibilité aux droits humains et capacité à vulgariser des enjeux politiques complexes'],
+             ['CDI — poste basé à Paris 11e', 'Salaire entre 35K et 42K selon expérience', 'Accord télétravail 2j/semaine', 'Accès aux ressources internationales d\'Amnesty et mobilité possible'])">
+          <div class="job-card-top">
+            <div class="job-org-logo" style="background:#fff8e1; color:#f57f17;">AI</div>
+            <div class="job-meta">
+              <div class="job-title">Chargé·e de collecte en ligne</div>
+              <div class="job-org">Amnesty International France</div>
+            </div>
+            <button class="job-save" onclick="event.stopPropagation(); toggleSave(this)" title="Sauvegarder">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="job-tags">
+            <span class="tag tag-location">📍 Paris (75)</span>
+            <span class="tag tag-type">CDI</span>
+            <span class="tag tag-salary">€35–42K/an</span>
+            <span class="tag tag-impact">⚖️ Droits humains</span>
+          </div>
+          <div class="job-card-bottom">
+            <span class="job-date">Publié il y a 4 jours</span>
+            <button class="btn-apply">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <!-- Job 6 — Greenpeace -->
+        <div class="job-card" data-category="terrain communication" data-salary="24600" data-date="6"
+             onclick="openModal('Animateur·rice de sensibilisation', 'Greenpeace France', 'GP', 'Bordeaux (33)', 'CDI', '€1 900–2 200/mois', '🌱 Écologie',
+             ['Organiser et animer des stands de sensibilisation sur les marchés, fêtes locales et événements partenaires', 'Mobiliser et fidéliser les sympathisants Greenpeace dans la région Aquitaine', 'Recruter et accompagner les nouveaux bénévoles pour les actions locales', 'Représenter Greenpeace France auprès des médias locaux et partenaires institutionnels'],
+             ['Aisance relationnelle et goût pour le contact avec le grand public', 'Intérêt fort pour les enjeux climatiques et la politique environnementale', 'Capacité à travailler en itinérance (déplacements réguliers en Nouvelle-Aquitaine)', 'Permis B et véhicule obligatoire — frais kilométriques remboursés'],
+             ['CDI — poste basé à Bordeaux avec déplacements régionaux', 'Salaire fixe entre 1 900 et 2 200€ + primes terrain', 'Formation Greenpeace payée + accès aux ressources militantes internationales', 'Mutuelle prise en charge à 100%'])">
+          <div class="job-card-top">
+            <div class="job-org-logo" style="background:#e8f5e9; color:#1b5e20;">GP</div>
+            <div class="job-meta">
+              <div class="job-title">Animateur·rice de sensibilisation</div>
+              <div class="job-org">Greenpeace France</div>
+            </div>
+            <button class="job-save" onclick="event.stopPropagation(); toggleSave(this)" title="Sauvegarder">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="job-tags">
+            <span class="tag tag-location">📍 Bordeaux (33)</span>
+            <span class="tag tag-type">CDI</span>
+            <span class="tag tag-salary">€1 900–2 200/mois</span>
+            <span class="tag tag-impact">🌱 Écologie</span>
+          </div>
+          <div class="job-card-bottom">
+            <span class="job-date">Publié il y a 6 jours</span>
+            <button class="btn-apply">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <!-- Job 7 — CRF -->
+        <div class="job-card" data-category="siege" data-salary="41500" data-date="14"
+             onclick="openModal('Responsable partenariats ONG', 'La Croix-Rouge française', 'CRF', 'Paris (75)', 'CDI', '€38–45K/an', '🏥 Solidarité',
+             ['Développer et gérer le portefeuille de partenariats institutionnels et entreprises de la CRF (budget partenariats : 12M€)', 'Prospecter de nouveaux partenaires privés et négocier des conventions pluriannuelles', 'Coordonner la mise en œuvre des partenariats avec les directions régionales', 'Produire les bilans de partenariats et animer les comités de pilotage'],
+             ['Bac+5 et 4 ans minimum en développement commercial, fundraising ou gestion de partenariats', 'Expérience dans le secteur associatif ou en conseil auprès d\'ONG', 'Excellentes qualités de négociation et de communication institutionnelle', 'Maîtrise de l\'anglais (partenaires internationaux)'],
+             ['CDI cadre — siège national Paris 15e', 'Salaire entre 38K et 45K selon profil', 'Avantages sociaux CRF : mutuelle, tickets restaurant, 9 jours de RTT', 'Possibilité de missions terrain en France et à l\'international'])">
+          <div class="job-card-top">
+            <div class="job-org-logo" style="background:#ffebee; color:#b71c1c;">CRF</div>
+            <div class="job-meta">
+              <div class="job-title">Responsable partenariats ONG</div>
+              <div class="job-org">La Croix-Rouge française</div>
+            </div>
+            <button class="job-save" onclick="event.stopPropagation(); toggleSave(this)" title="Sauvegarder">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="job-tags">
+            <span class="tag tag-location">📍 Paris (75)</span>
+            <span class="tag tag-type">CDI</span>
+            <span class="tag tag-salary">€38–45K/an</span>
+            <span class="tag tag-impact">🏥 Solidarité</span>
+          </div>
+          <div class="job-card-bottom">
+            <span class="job-date">Publié il y a 2 semaines</span>
+            <button class="btn-apply">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <!-- Job 8 — BABYLON Lyon -->
+        <div class="job-card featured babylon-card" data-category="f2f terrain" data-salary="2400" data-date="1"
+             onclick="openModal('Collecteur·rice terrain — Lyon', 'BABYLON Agency', 'BA', 'Lyon (69)', 'CDI', '€1 800–2 400/mois + primes', '⚡ Impact direct',
+             ['Mener des campagnes de collecte F2F dans les quartiers résidentiels et en zone commerciale sur Lyon et métropole', 'Atteindre des objectifs individuels de 8 à 12 donateurs validés par semaine', 'Participer aux briefs quotidiens et aux sessions de coaching terrain avec votre chef d\'équipe', 'Utiliser l\'application BABYLON pour tracker vos performances et accéder aux supports de formation'],
+             ['Aucune expérience requise — nous formons tout le monde via BABYLON Academy', 'Goût du contact humain, résilience et capacité à encaisser les refus sans découragement', 'Disponibilité du lundi au vendredi (horaires 10h–19h) + 1 samedi sur 2 si souhaité', 'Permis B souhaité'],
+             ['CDI dès l\'entrée — pas de CDD, pas d\'auto-entrepreneur', 'Salaire fixe garanti + commissions déplafonnées (les meilleurs gagnent 3 500€/mois)', 'Accès gratuit à BABYLON Academy (simulateur IA, modules vidéo, coaching)', 'Évolution chef d\'équipe possible en 6 à 12 mois selon performances'])">
+          <div class="job-card-top">
+            <div class="job-org-logo" style="background: rgba(201,168,76,0.1); color: #c9a84c;">BA</div>
+            <div class="job-meta">
+              <div class="job-title">Collecteur·rice terrain — Lyon</div>
+              <div class="job-org">BABYLON Agency</div>
+            </div>
+            <button class="job-save" onclick="event.stopPropagation(); toggleSave(this)" title="Sauvegarder">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="job-tags">
+            <span class="tag tag-location">📍 Lyon (69)</span>
+            <span class="tag tag-type">CDI</span>
+            <span class="tag tag-salary">€1 800–2 400/mois + primes</span>
+            <span class="tag tag-impact">⚡ Impact direct</span>
+          </div>
+          <div class="job-card-bottom">
+            <span class="job-date">Publié il y a 1 jour</span>
+            <button class="btn-apply">Voir l'offre →</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div class="empty-state" id="emptyState">
+        <div class="empty-state-icon">🔍</div>
+        <h3>Aucune offre trouvée</h3>
+        <p>Aucune offre ne correspond à votre recherche pour le moment. Essayez d'autres filtres ou inscrivez-vous pour être alerté·e en priorité.</p>
+        <button class="btn-reset-filter" onclick="resetFilters()">Voir toutes les offres</button>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="spotlight-card">
+        <div class="spotlight-header">
+          <div class="spotlight-eyebrow">⭐ Partenaire Fondateur</div>
+          <div class="spotlight-logo" style="background: rgba(201,168,76,0.2); color: #c9a84c; font-size: 14px;">BA</div>
+          <div class="spotlight-org">BABYLON Agency</div>
+          <div class="spotlight-tagline">Collecte F2F — Performance pure</div>
+        </div>
+        <div class="spotlight-body">
+          <p class="spotlight-desc">BABYLON est le partenaire fondateur de CauseWork. L'agence de référence pour la collecte F2F en France — CDI dès l'entrée, formations premium, primes déplafonnées.</p>
+          <div class="spotlight-stats">
+            <div class="spotlight-stat"><div class="spotlight-stat-num">2</div><div class="spotlight-stat-label">offres actives</div></div>
+            <div class="spotlight-stat"><div class="spotlight-stat-num">85%+</div><div class="spotlight-stat-label">rétention donateurs</div></div>
+            <div class="spotlight-stat"><div class="spotlight-stat-num">5★</div><div class="spotlight-stat-label">avis équipes</div></div>
+            <div class="spotlight-stat"><div class="spotlight-stat-num">CDI</div><div class="spotlight-stat-label">dès le 1er jour</div></div>
+          </div>
+          <a href="#" class="btn-spotlight" onclick="filterJobs('f2f', document.querySelector('[onclick*=\'f2f\']')); return false;">Voir toutes les offres BABYLON →</a>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <h3>Pourquoi CauseWork?</h3>
+        <div class="why-item">
+          <div class="why-icon">🎯</div>
+          <div class="why-text"><h4>Offres 100% vérifiées</h4><p>Chaque offre est validée manuellement. Pas de spam, pas de fausses annonces, pas de MLM déguisé.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">💚</div>
+          <div class="why-text"><h4>Impact garanti</h4><p>Toutes les organisations partenaires opèrent dans le secteur de l'intérêt général.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">📞</div>
+          <div class="why-text"><h4>Rappelé sous 48h</h4><p>Postulez en 1 clic. Un recruteur vous rappelle sous 48h maximum pour tout poste actif.</p></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- COMMENT ÇA MARCHE — CANDIDATS -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="how-inner">
+      <div class="how-eyebrow">Pour les candidats</div>
+      <h2 class="how-title">3 étapes pour décrocher votre mission</h2>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-step-num">1</div>
+          <h3>Créez votre profil</h3>
+          <p>2 minutes chrono. Renseignez vos compétences, vos disponibilités et les causes qui vous tiennent à cœur.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">2</div>
+          <h3>Postulez en 1 clic</h3>
+          <p>Votre profil est envoyé directement au recruteur. Pas de CV à reformater, pas de lettre de motivation obligatoire.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">3</div>
+          <h3>Rappelé sous 48h</h3>
+          <p>Un recruteur de l'organisation vous contacte personnellement sous 48h ouvrées pour un premier échange.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL SIGNUP -->
+  <section class="email-section">
+    <div class="email-inner">
+      <div class="email-badge">📬 Newsletter hebdo</div>
+      <h2>Reçois les meilleures offres impact chaque semaine</h2>
+      <p>Plus de 2 400 candidats reçoivent déjà notre sélection hebdomadaire. Rejoins-les — c'est gratuit.</p>
+      <div id="emailFormWrapper">
+        <form class="email-form" onsubmit="handleSignup(event)">
+          <input type="email" placeholder="ton@email.fr" required>
+          <button type="submit">Je m'inscris →</button>
+        </form>
+        <div class="email-note">Désinscription en 1 clic. Pas de spam. Promis.</div>
+      </div>
+      <div class="email-success" id="emailSuccess">✅ Tu es sur la liste ! Check ta boîte mail pour confirmer.</div>
+    </div>
+  </section>
+
+  <!-- POUR LES RECRUTEURS -->
+  <section class="recruiters-section" id="recruiters">
+    <div class="recruiters-inner">
+      <div class="recruiters-content">
+        <div class="eyebrow">Pour les recruteurs</div>
+        <h2>Vos futurs collecteurs<br>sont ici.</h2>
+        <p>CauseWork n'est pas un job board généraliste. Ici, chaque candidat a activement choisi de chercher un poste à impact. Des profils plus motivés. Des embauches qui durent.</p>
+        <div class="recruiters-benefits">
+          <div class="recruiter-benefit">
+            <div class="recruiter-benefit-icon">⚡</div>
+            <div class="recruiter-benefit-text"><strong>Publication en 10 minutes.</strong> Interface simple, publication immédiate, modération sous 24h.</div>
+          </div>
+          <div class="recruiter-benefit">
+            <div class="recruiter-benefit-icon">🎯</div>
+            <div class="recruiter-benefit-text"><strong>Candidats pré-qualifiés.</strong> Chaque candidat a activement choisi CauseWork — pas d'envois automatiques ou de candidatures vides.</div>
+          </div>
+          <div class="recruiter-benefit">
+            <div class="recruiter-benefit-icon">📊</div>
+            <div class="recruiter-benefit-text"><strong>Tableau de bord recruteur.</strong> Suivez vos annonces, les candidatures reçues et relancez en un clic.</div>
+          </div>
+          <div class="recruiter-benefit">
+            <div class="recruiter-benefit-icon">💰</div>
+            <div class="recruiter-benefit-text"><strong>Tarif unique et transparent.</strong> 149€/offre pour 30 jours. Aucun abonnement obligatoire.</div>
+          </div>
+        </div>
+        <a href="#" class="btn-recruiter">Publier une offre →</a>
+      </div>
+      <div class="recruiters-visual">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+          <div style="background:rgba(255,255,255,0.08); border-radius:12px; padding:20px;">
+            <div class="rec-stat-big" style="font-size:36px;">12 000</div>
+            <div class="rec-stat-label">candidats inscrits</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.08); border-radius:12px; padding:20px;">
+            <div class="rec-stat-big" style="font-size:36px; color:#fbbf24;">78%</div>
+            <div class="rec-stat-label">Gen Z & Millenials</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.08); border-radius:12px; padding:20px;">
+            <div class="rec-stat-big" style="font-size:36px; color:#4ade80;">94%</div>
+            <div class="rec-stat-label">en recherche active</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.08); border-radius:12px; padding:20px;">
+            <div class="rec-stat-big" style="font-size:36px;">11j</div>
+            <div class="rec-stat-label">délai moyen recrutement</div>
+          </div>
+        </div>
+        <a href="#" class="btn-spotlight" style="display:block; text-align:center;">Publier une offre gratuitement →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a class="footer-logo" href="#"><span style="font-weight:400;">cause</span><span style="font-weight:900;">work</span><span style="color:var(--green); font-size:12px; margin-left:2px;">✦</span></a>
+      <div class="footer-links">
+        <a href="#">À propos</a>
+        <a href="#how-it-works">Candidats</a>
+        <a href="#recruiters">Employeurs</a>
+        <a href="#">Blog</a>
+        <a href="#">Contact</a>
+        <a href="#">Mentions légales</a>
+        <a href="#">RGPD</a>
+      </div>
+      <div class="footer-copy">© 2026 CauseWork — Des jobs qui comptent vraiment. Partenaire fondateur : <strong style="color: rgba(255,255,255,0.6)">BABYLON Agency</strong></div>
+    </div>
+  </footer>
+
+  <!-- JOB MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="checkModalClose(event)">
+    <div class="modal-panel" id="modalPanel">
+      <div class="modal-header">
+        <span id="modalHeaderTitle" style="font-size:14px; font-weight:700; color: #6b7280;">Détail de l'offre</span>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-org-row">
+          <div class="modal-org-logo" id="modalOrgLogo">?</div>
+          <div>
+            <div id="modalOrgName" style="font-size:13px; color:#6b7280; font-weight:600;"></div>
+          </div>
+        </div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-section">
+          <div class="modal-section-title">Missions</div>
+          <ul class="modal-list" id="modalMissions"></ul>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">Profil recherché</div>
+          <ul class="modal-list" id="modalProfile"></ul>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">Avantages</div>
+          <ul class="modal-list" id="modalPerks"></ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-apply" onclick="applyToJob()">Postuler maintenant →</button>
+        <button class="btn-modal-save" onclick="closeModal()">Sauvegarder</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === FILTER & SORT ===
+    let currentCategory = 'all';
+
+    function filterJobs(category, btn) {
+      currentCategory = category;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      applyFiltersAndSort();
+    }
+
+    function sortJobs(val) {
+      applyFiltersAndSort();
+    }
+
+    function applyFiltersAndSort() {
+      const cards = Array.from(document.querySelectorAll('.job-card'));
+      const sortVal = document.getElementById('sortSelect').value;
+
+      let visible = cards.filter(card => {
+        const cat = card.getAttribute('data-category') || '';
+        return currentCategory === 'all' || cat.includes(currentCategory);
+      });
+
+      // Sort
+      if (sortVal === 'recent') {
+        visible.sort((a, b) => parseInt(a.dataset.date) - parseInt(b.dataset.date));
+      } else if (sortVal === 'salaire-asc') {
+        visible.sort((a, b) => parseInt(a.dataset.salary) - parseInt(b.dataset.salary));
+      } else if (sortVal === 'salaire-desc') {
+        visible.sort((a, b) => parseInt(b.dataset.salary) - parseInt(a.dataset.salary));
+      }
+
+      const jobsList = document.getElementById('jobsList');
+      cards.forEach(c => c.style.display = 'none');
+
+      visible.forEach(card => {
+        card.style.display = 'block';
+        jobsList.appendChild(card); // re-order
+      });
+
+      const emptyState = document.getElementById('emptyState');
+      const count = visible.length;
+      document.getElementById('jobsCount').textContent = `${count} offre${count !== 1 ? 's' : ''} · ${sortVal === 'pertinence' ? 'Triées par pertinence' : 'Triées par ' + sortVal}`;
+      emptyState.classList.toggle('visible', count === 0);
+    }
+
+    function liveSearch(query) {
+      const q = query.toLowerCase().trim();
+      const cards = document.querySelectorAll('.job-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const show = !q || text.includes(q);
+        card.style.display = show ? 'block' : 'none';
+        if (show) visible++;
+      });
+      document.getElementById('jobsCount').textContent = `${visible} offre${visible !== 1 ? 's' : ''} trouvée${visible !== 1 ? 's' : ''}`;
+      document.getElementById('emptyState').classList.toggle('visible', visible === 0);
+    }
+
+    function resetFilters() {
+      currentCategory = 'all';
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.filter-btn').classList.add('active');
+      document.querySelectorAll('.job-card').forEach(c => c.style.display = 'block');
+      document.getElementById('emptyState').classList.remove('visible');
+      document.getElementById('jobsCount').textContent = '8 offres · Triées par pertinence';
+    }
+
+    // === EMAIL SIGNUP ===
+    function handleSignup(e) {
+      e.preventDefault();
+      document.getElementById('emailFormWrapper').style.display = 'none';
+      const success = document.getElementById('emailSuccess');
+      success.style.display = 'block';
+    }
+
+    // === SAVE BUTTON ===
+    function toggleSave(btn) {
+      const saved = btn.getAttribute('data-saved') === 'true';
+      btn.setAttribute('data-saved', !saved);
+      btn.style.background = saved ? '' : 'rgba(26,26,46,0.08)';
+      btn.style.borderColor = saved ? '' : 'var(--navy)';
+      btn.style.color = saved ? '' : 'var(--navy)';
+      btn.querySelector('svg').setAttribute('fill', saved ? 'none' : 'currentColor');
+    }
+
+    // === MODAL ===
+    function openModal(title, org, logoText, location, type, salary, impact, missions, profile, perks) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalOrgName').textContent = org;
+      document.getElementById('modalHeaderTitle').textContent = org;
+      document.getElementById('modalOrgLogo').textContent = logoText;
+
+      // Tags
+      const tagsEl = document.getElementById('modalTags');
+      tagsEl.innerHTML = `
+        <span class="tag tag-location">📍 ${location}</span>
+        <span class="tag tag-type">${type}</span>
+        <span class="tag tag-salary">${salary}</span>
+        <span class="tag tag-impact">${impact}</span>
+      `;
+
+      // Missions
+      const mEl = document.getElementById('modalMissions');
+      mEl.innerHTML = missions.map(m => `<li>${m}</li>`).join('');
+
+      // Profile
+      const pEl = document.getElementById('modalProfile');
+      pEl.innerHTML = profile.map(p => `<li>${p}</li>`).join('');
+
+      // Perks
+      const peEl = document.getElementById('modalPerks');
+      peEl.innerHTML = perks.map(p => `<li>${p}</li>`).join('');
+
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function checkModalClose(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+
+    function applyToJob() {
+      const btn = document.querySelector('.btn-modal-apply');
+      btn.textContent = '✅ Candidature envoyée !';
+      btn.style.background = '#15803d';
+      setTimeout(() => {
+        btn.textContent = 'Postuler maintenant →';
+        btn.style.background = '';
+        closeModal();
+      }, 2000);
+    }
+
+    // ESC to close
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>

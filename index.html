@@ -837,7 +837,14 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <span class="logo-cause">cause</span><span class="logo-work">work</span><span class="logo-spark">✦</span>
+      <svg viewBox="0 0 170 36" style="height:30px;display:block;" xmlns="http://www.w3.org/2000/svg">
+        <!-- Impact spark mark -->
+        <circle cx="14" cy="18" r="12" fill="#16a34a" opacity="0.12"/>
+        <polygon points="14,6 17,16 25,16 19,22 21,32 14,26 7,32 9,22 3,16 11,16" fill="#16a34a"/>
+        <!-- Wordmark -->
+        <text x="32" y="25" font-family="Inter,system-ui,sans-serif" font-weight="300" font-size="19" fill="#1a1a2e" letter-spacing="-0.3">cause</text>
+        <text x="83" y="25" font-family="Inter,system-ui,sans-serif" font-weight="800" font-size="19" fill="#1a1a2e" letter-spacing="-0.5">Work</text>
+      </svg>
     </a>
     <div class="nav-links">
       <a href="#" class="nav-link active">Offres</a>
@@ -848,15 +855,21 @@
     <div class="nav-right">
       <a href="#" class="btn-login">Se connecter</a>
       <a href="#" class="btn-post">Publier une offre</a>
+      <button class="lang-toggle" onclick="toggleLang()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.05em;margin-left:4px;">EN</button>
     </div>
   </div>
 </nav>
 
+<!-- STATS BAR -->
+<div style="background:#f0fdf4;border-bottom:1px solid #bbf7d0;padding:10px 5%;text-align:center;">
+  <span style="font-size:13px;font-weight:600;color:#15803d;" data-fr="847 offres actives · 38 000 candidats inscrits · 🇫🇷 Conçu pour le marché français · RGPD conforme" data-en="847 active listings · 38,000 registered candidates · 🇫🇷 Built for the French market · GDPR compliant">847 offres actives · 38 000 candidats inscrits · 🇫🇷 Conçu pour le marché français · RGPD conforme</span>
+</div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <h1>Trouve le job qui<br><span>change quelque chose.</span></h1>
-    <p class="hero-sub">Des centaines d'offres dans les ONG, associations et entreprises à impact en France.</p>
+    <h1 data-fr="Le job qui change quelque chose.<br><span>Vraiment.</span>" data-en="Work that actually<br><span>changes something.</span>">Le job qui change quelque chose.<br><span>Vraiment.</span></h1>
+    <p class="hero-sub" data-fr="Les meilleures offres dans les ONG et entreprises à impact. 847 offres actives · 38 000 candidats inscrits." data-en="The best jobs in nonprofits and impact-driven companies. 847 active listings · 38,000 registered candidates.">Les meilleures offres dans les ONG et entreprises à impact. 847 offres actives · 38 000 candidats inscrits.</p>
 
     <div class="search-bar">
       <div class="search-input-wrap">
@@ -1177,7 +1190,7 @@
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">
-        © 2026 CauseWork · Une initiative <a href="#">BABYLON Group</a> · Paris, France
+        © 2026 CauseWork · Une initiative <strong><a href="#" style="color:inherit;">BABYLON Group</a></strong> · 🔒 Données hébergées en France · RGPD conforme · Paris, France
       </div>
       <div style="display:flex;gap:12px;font-size:13px;color:rgba(255,255,255,0.4);">
         <a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">LinkedIn</a>
@@ -1585,6 +1598,16 @@ function showToast(msg) {
 // Init
 renderJobs('tous');
 </script>
-
+<script>
+  let currentLang = 'fr';
+  function toggleLang() {
+    currentLang = currentLang === 'fr' ? 'en' : 'fr';
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      el.innerHTML = currentLang === 'fr' ? el.dataset.fr : el.dataset.en;
+    });
+    const toggle = document.querySelector('.lang-toggle');
+    if (toggle) toggle.textContent = currentLang === 'fr' ? 'EN' : 'FR';
+  }
+</script>
 </body>
 </html>

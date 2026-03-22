@@ -334,15 +334,15 @@
     }
 
     .company-logo {
-      width: 44px; height: 44px;
-      border-radius: 10px;
+      width: 48px; height: 48px;
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 800;
       color: white;
       flex-shrink: 0;
       border: 2px solid rgba(255,255,255,0.8);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
 
     .job-card-info { flex: 1; min-width: 0; }
@@ -829,6 +829,37 @@
       from { transform: translateX(40px); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
     }
+
+    /* ── BLOB ANIMATION ── */
+    .hero-blob {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: blobFloat 8s ease-in-out infinite;
+      top: -200px; right: -100px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes blobFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 10px) scale(0.95); }
+    }
+
+    /* ── BADGE PULSE ── */
+    .badge-new { animation: pulse-badge 2s ease-in-out infinite; }
+    @keyframes pulse-badge { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+    /* ── RECRUITER IMAGE ── */
+    .recruiter-img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 14px;
+      height: 140px;
+    }
   </style>
 </head>
 <body>
@@ -867,6 +898,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-blob"></div>
   <div class="hero-inner">
     <h1 data-fr="Le job qui change quelque chose.<br><span>Vraiment.</span>" data-en="Work that actually<br><span>changes something.</span>">Le job qui change quelque chose.<br><span>Vraiment.</span></h1>
     <p class="hero-sub" data-fr="Les meilleures offres dans les ONG et entreprises à impact. 847 offres actives · 38 000 candidats inscrits." data-en="The best jobs in nonprofits and impact-driven companies. 847 active listings · 38,000 registered candidates.">Les meilleures offres dans les ONG et entreprises à impact. 847 offres actives · 38 000 candidats inscrits.</p>
@@ -892,7 +924,7 @@
     </div>
 
     <div class="hero-stats">
-      <span><span>847</span> offres actives</span>
+      <span><span id="counter-offers">847</span> offres actives</span>
       <span>·</span>
       <span><span>124</span> organisations</span>
       <span>·</span>
@@ -900,6 +932,11 @@
     </div>
   </div>
 </section>
+
+<!-- WAVY DIVIDER -->
+<svg viewBox="0 0 1440 60" style="display:block;margin-top:-1px;width:100%;" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,20 1440,30 L1440,60 L0,60 Z" fill="#f8f7f4"/>
+</svg>
 
 <!-- PROFILE CALCULATOR -->
 <section style="background:#f0f7ff;border-top:1px solid #dbeafe;border-bottom:1px solid #dbeafe;padding:64px 5%;">
@@ -1128,6 +1165,7 @@
     <!-- Pour les recruteurs -->
     <div class="sidebar-card">
       <div class="sidebar-card-title">🏢 Pour les recruteurs</div>
+      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="Équipe au bureau" class="recruiter-img" loading="lazy">
       <div class="recruiter-stats">
         <div class="rec-stat">
           <div class="rec-stat-num">78%</div>
@@ -1245,7 +1283,7 @@ const jobs = [
     title:"Chargé·e de levée de fonds digital",
     company:"WWF France",
     companyInitials:"WF",
-    companyColor:"#16a34a",
+    companyColor:"#ff6600",
     category:"Fundraising",
     location:"Paris 15e",
     contract:"CDI",
@@ -1266,7 +1304,7 @@ const jobs = [
     title:"Coordinateur·rice terrain",
     company:"Médecins du Monde",
     companyInitials:"MM",
-    companyColor:"#dc2626",
+    companyColor:"#e63946",
     category:"Terrain",
     location:"Lyon",
     contract:"CDD 12 mois",
@@ -1287,7 +1325,7 @@ const jobs = [
     title:"Responsable Fundraising",
     company:"Action contre la Faim",
     companyInitials:"AF",
-    companyColor:"#ea580c",
+    companyColor:"#c1121f",
     category:"Fundraising",
     location:"Paris 8e",
     contract:"CDI",
@@ -1308,7 +1346,7 @@ const jobs = [
     title:"Chargé·e de com digitale",
     company:"Greenpeace France",
     companyInitials:"GP",
-    companyColor:"#16a34a",
+    companyColor:"#2d6a4f",
     category:"Communication",
     location:"Paris 11e",
     contract:"CDI",
@@ -1350,7 +1388,7 @@ const jobs = [
     title:"Data Analyst Dons",
     company:"Amnesty International France",
     companyInitials:"AI",
-    companyColor:"#f59e0b",
+    companyColor:"#ffb703",
     category:"Data & Tech",
     location:"Paris 18e",
     contract:"CDI",
@@ -1371,7 +1409,7 @@ const jobs = [
     title:"Chef·fe de projet Impact",
     company:"Fondation de France",
     companyInitials:"FF",
-    companyColor:"#7c3aed",
+    companyColor:"#1d3557",
     category:"Philanthropie",
     location:"Paris 8e",
     contract:"CDI",
@@ -1392,7 +1430,7 @@ const jobs = [
     title:"Responsable Partenariats",
     company:"Croix-Rouge française",
     companyInitials:"CR",
-    companyColor:"#dc2626",
+    companyColor:"#d62828",
     category:"Partenariats",
     location:"Paris 7e",
     contract:"CDI",
@@ -1413,7 +1451,7 @@ const jobs = [
     title:"Community Manager Impact",
     company:"La Ruche qui dit Oui",
     companyInitials:"RO",
-    companyColor:"#16a34a",
+    companyColor:"#52b788",
     category:"Digital",
     location:"Remote",
     contract:"CDI",
@@ -1597,6 +1635,57 @@ function showToast(msg) {
 
 // Init
 renderJobs('tous');
+
+// Counter animation — 840 → 847 in 1 second
+(function() {
+  const el = document.getElementById('counter-offers');
+  if (!el) return;
+  const start = 840, end = 847, duration = 1000;
+  const startTime = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    el.textContent = Math.round(start + (end - start) * progress);
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// Fade-in on scroll for job cards
+(function() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  function observeCards() {
+    document.querySelectorAll('.job-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      observer.observe(card);
+    });
+  }
+
+  // Run after initial render
+  setTimeout(observeCards, 50);
+
+  // Re-observe when filter changes
+  const origRenderJobs = window.renderJobs;
+  if (origRenderJobs) {
+    window.renderJobsOrig = origRenderJobs;
+    window.renderJobs = function(filter) {
+      window.renderJobsOrig(filter);
+      setTimeout(observeCards, 50);
+    };
+  }
+})();
 </script>
 <script>
   let currentLang = 'fr';

@@ -1721,21 +1721,23 @@ renderJobs('tous');
   function setLang(lang) {
     currentLang = lang;
     document.querySelectorAll('[data-fr]').forEach(el => {
-      el.innerHTML = lang === 'fr' ? el.dataset.fr : (el.dataset.en || el.dataset.fr);
+      const val = lang === 'fr' ? el.dataset.fr : (el.dataset.en || el.dataset.fr);
+      const clean = val
+        .replace(/&amp;lt;/g, '<').replace(/&amp;gt;/g, '>')
+        .replace(/&amp;amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      el.innerHTML = clean;
     });
     document.querySelectorAll('[data-placeholder-fr]').forEach(el => {
       el.placeholder = lang === 'fr' ? el.dataset.placeholderFr : (el.dataset.placeholderEn || el.dataset.placeholderFr);
     });
-    document.querySelectorAll('.lang-toggle').forEach(btn => {
+    document.querySelectorAll('.lang-btn, .lang-toggle').forEach(btn => {
       btn.textContent = lang === 'fr' ? 'EN' : 'FR';
-      btn.setAttribute('aria-label', lang === 'fr' ? 'Switch to English' : 'Passer en français');
     });
     localStorage.setItem('lang', lang);
   }
   function toggleLang() { setLang(currentLang === 'fr' ? 'en' : 'fr'); }
   document.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('lang');
-    if (saved && saved !== 'fr') setLang(saved);
+    setLang(localStorage.getItem('lang') || 'fr');
   });
 </script>
 </body>
